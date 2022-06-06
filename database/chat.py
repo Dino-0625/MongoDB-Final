@@ -12,12 +12,21 @@ collection = database.db.message
 
 
 def message_get_all() -> list:
+    """retur all message"""
     # from new to old
     msg_list = collection.find().sort("date", pymongo.DESCENDING).limit(MAX_MSG_SHOW_COUNT)
     return msg_list
 
 
+def message_get_date_between(date_begin: datetime.datetime, date_end: datetime.datetime) -> list:
+    """return all message between two dates"""
+    msg_list = collection.find({"date": {"$gt": date_begin.isoformat()}, "date": {"$lt": date_end.isoformat()}}) \
+        .sort("date", pymongo.DESCENDING).limit(MAX_MSG_SHOW_COUNT)
+    return msg_list
+
+
 def message_insert(user_id: str, msg: str) -> bool:
+    """add new message into database"""
     # check if there's user or not
     user_name = database.user_id_to_nickname(user_id)
     if user_name == None:

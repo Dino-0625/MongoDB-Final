@@ -7,6 +7,7 @@ import database
 collection = database.db.user
 
 def user_add(nickname) -> bool:
+    """add new user when someone first come into chatroom"""
     logging.info("inserting user \"{}\"".format(nickname))
     # not giving _id, let mongoDB create one
     post = {"nickname": nickname, "reg_time": datetime.datetime.utcnow()}
@@ -20,6 +21,7 @@ def user_add(nickname) -> bool:
 
 
 def user_change_name(user_id: str, new_name: str):
+    """change user nickname"""
     logging.info("user \"{}\" is changing nickname to \"{}\"".format(user_id, new_name))
     try:
         collection.update_one({"_id": objectid.ObjectId(user_id)}, {"$set": {"nickname": new_name}})
