@@ -3,7 +3,7 @@ import pymongo
 import logging
 
 USER_NAME = "user0"
-USER_PASSWORD = ""
+USER_PASSWORD = "nvBnZYTYtU6HSSJj"
 
 db = None
 
@@ -26,9 +26,3 @@ except Exception as e:
 
 from database.message import *
 from database.user import *
-
-user_add("nickeeeeee")
-message_insert("phJYHj", "hel23233loooo")
-
-for i in message_get_all():
-    print(i)
