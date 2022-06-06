@@ -21,7 +21,7 @@ try:
     db = client.codech
     logging.info("connected successfully!")
 except Exception as e:
-    logging.fatal(e)
+    logging.fatal("connection failed: {}".format(e))
     sys.exit(0)
 
 from database.message import *

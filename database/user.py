@@ -21,8 +21,9 @@ def user_add(nickname: str) -> bool:
     logging.info("inserting user \"{}\"".format(nickname))
     
     user_id = random_id()
-    # deal with id duplicated, which is rarely happen
+    # deal with id duplication, which is rarely happen
     row = collection.find_one({"_id": user_id})
+    # row == None if there is no user yet
     while (row != None) and (len(row) != 0):
         user_id = random_id()
 

@@ -17,7 +17,7 @@ def message_get_all() -> list:
     return msg_list
 
 
-def message_get_date_between(date_begin: datetime.datetime, date_end: datetime.datetime) -> list:
+def message_get_between_dates(date_begin: datetime.datetime, date_end: datetime.datetime) -> list:
     """return all message between two dates"""
     msg_list = collection.find({"date": {"$gt": date_begin.isoformat()}, "date": {"$lt": date_end.isoformat()}}) \
         .sort("_id", pymongo.DESCENDING).limit(MAX_MSG_SHOW_COUNT)
