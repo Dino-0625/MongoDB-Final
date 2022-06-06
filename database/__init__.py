@@ -17,8 +17,8 @@ logging.basicConfig(stream = sys.stdout,
 try:
     logging.info("connecting to mongodb atlas...")
     client = pymongo.MongoClient("mongodb+srv://{}:{}@cluster0.ybzp5.mongodb.net/?retryWrites=true&w=majority".format(USER_NAME, USER_PASSWORD))
-    # the name of this database is "mongochat"
-    db = client.mongochat
+    # the name of this database is "codech"
+    db = client.codech
     logging.info("connected successfully!")
 except Exception as e:
     logging.fatal(e)
