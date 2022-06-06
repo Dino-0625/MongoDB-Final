@@ -1,3 +1,4 @@
+import http
 import database
 import flask
 app = flask.Flask(__name__, static_url_path='')
@@ -9,10 +10,8 @@ def index():
 @app.route('/user', methods = ['POST'])
 def reg():
     # if flask.request.method == 'POST':
-    print(flask.request.form)
     if database.user_add(flask.request.form['nickname']):
-        # flask.redirect(flask.url_for(chat))
-        print("success")
+        return flask.Response("", status=http.HTTPStatus.ACCEPTED)
     else:
         pass
 
