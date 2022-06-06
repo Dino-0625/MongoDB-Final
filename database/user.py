@@ -59,7 +59,7 @@ def user_delete(user_id: str):
         logging.log("user \"{}\" failed to delete with following error:\n{}".format(user_id, err))
 
 
-def user_id_to_nickname(user_id: str) -> str | None:
+def user_id_to_nickname(user_id: str) -> str:
     """return user nickname from id"""
     try:
         res = collection.find_one({"_id": user_id}, {"_id": 0, "nickname": 1})
