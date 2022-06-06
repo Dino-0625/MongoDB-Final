@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>code.ch</title>
+    <title>mongo Ch.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -15,17 +15,13 @@
 
 <body>
     <div></div>
-    <form action="/chat" method="post">
-        <input type="text" id="nickname" name="nickname">
-        <input type="submit" id="submit-button" value="進入聊天室">
-    </form>
+    <input type="text" id="nickname">
+    <button type="button" class="btn btn-outline-primary" id="submit-button">進入聊天室</button>
 
-    <div class="no-display">
-        <form action="/user/reg" method="post">
-            <input type="text" name="nickname">
-            <input type="submit">
-        </form>
-    </div>
+    <!-- <iframe class="no-display" id="hidden-frame"></iframe> -->
+    <form class="no-display" action="/user" method="post" id="reg-form" >
+        <input type="text" name="nickname" id="form-nickname">
+    </form>
 </body>
 
 </html>
