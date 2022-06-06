@@ -24,12 +24,11 @@ except Exception as e:
     logging.fatal(e)
     sys.exit(0)
 
-from database.chat import *
+from database.message import *
 from database.user import *
 
 user_add("nickeeeeee")
-message_insert("629dc5d33d83f83446d1bd38", "helloooo")
-# print(user_id_to_nickname("629dc1597e02b9ed12f98742"))
+message_insert("phJYHj", "hel23233loooo")
 
 for i in message_get_all():
     print(i)
