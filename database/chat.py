@@ -11,7 +11,7 @@ MAX_MSG_SHOW_COUNT = 10000
 collection = database.db.message
 
 
-def message_get_all() -> list[str]:
+def message_get_all() -> list:
     # from new to old
     msg_list = collection.find().sort("date", pymongo.DESCENDING).limit(MAX_MSG_SHOW_COUNT)
     return msg_list
