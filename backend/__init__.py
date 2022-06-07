@@ -10,16 +10,14 @@ def index():
 @app.route('/user', methods = ['POST'])
 def reg():
     # if flask.request.method == 'POST':
-    if database.user_add(flask.request.form['nickname']):
-        return flask.Response("", status=http.HTTPStatus.ACCEPTED)
-    else:
-        pass
+    id = database.user_add(flask.request.form['nickname'])
+    return flask.redirect(flask.url_for('chat'))
+    #flask.Response("", status=http.HTTPStatus.ACCEPTED)
+    #return flask.Response("", status=http.HTTPStatus.BAD_REQUEST)
 
-# @app.route('/chat', methods = ['GET','POST'])
-# def chat():
-#     if flask.request.method == 'POST':
-#         pass
-#     return 
+@app.route('/chat', methods = ['GET','POST'])
+def chat():
+    return app.send_static_file('chat.html')
 
 @app.route('/message', methods = ['GET', 'POST'])
 def message_get() -> str:
