@@ -1,4 +1,5 @@
 import http
+import json
 import database
 import flask
 app = flask.Flask(__name__, static_url_path='')
@@ -19,15 +20,15 @@ def reg():
 def chat():
     return app.send_static_file('chat.html')
 
-@app.route('/message', methods = ['GET', 'POST'])
+@app.route('/message', methods = ['GET'])
 def message_get() -> str:
-    return str(database.message_get_all())
-   
+    print(database.message_get_all())
+    return json.dumps(database.message_get_all())
 
 @app.route('/message',methods = ['POST'])
 def message_post():
-    if not database.message_insert(flask.request.form['user_id'],flask.request.form['message']):
-        pass
+    database.message_insert(flask.request.form['user_id'],flask.request.form['message'])
+    return flask.Response("", http.HTTPStatus.OK)
 
 def run_backend():
     app.secret_key = "key"
