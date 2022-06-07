@@ -2,6 +2,12 @@ let submitButton;
 let nicknameInput;
 
 function start() {
+  let userId = localStorage.getItem("user-id");
+  // if user id created, redirect to chatroom
+  if (userId) {
+    window.location = "/chat";
+  }
+
   submitButton = document.getElementById("submit-button");
   submitButton.addEventListener("click", registerUser, false);
   nicknameInput = document.getElementById("nickname");

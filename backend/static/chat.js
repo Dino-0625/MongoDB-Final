@@ -1,6 +1,7 @@
 let messageBox;
 let messageInput;
 let messageButton;
+let userId;
 
 function httpGet(theUrl) {
   var xmlHttp = new XMLHttpRequest();
@@ -36,6 +37,12 @@ function reloadChatRoom() {
 }
 
 function start() {
+  userId = localStorage.getItem("user-id");
+  // if user not registered, redirect to main page
+  if (userId === null) {
+    window.location = "/";
+  }
+
   messageBox = document.getElementById("message-box");
   messageInput = document.getElementById("message-input");
   messageButton = document.getElementById("send-button");
@@ -46,7 +53,7 @@ function start() {
     }
   });
   reloadChatRoom();
-  setInterval(reloadChatRoom, 100);
+  setInterval(reloadChatRoom, 300);
 }
 
 window.addEventListener("load", start);
