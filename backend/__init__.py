@@ -11,7 +11,7 @@ def index():
 def reg():
     # if flask.request.method == 'POST':
     id = database.user_add(flask.request.form['nickname'])
-    return flask.redirect(flask.url_for('chat'))
+    return id
     #flask.Response("", status=http.HTTPStatus.ACCEPTED)
     #return flask.Response("", status=http.HTTPStatus.BAD_REQUEST)
 
