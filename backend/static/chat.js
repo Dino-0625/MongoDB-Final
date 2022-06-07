@@ -8,7 +8,7 @@ function httpGet(theUrl) {
 }
 
 function reloadChatRoom() {
-    let messages = httpGet("/chat");
+    let messages = httpGet("/message");
     console.log(messages);
 }
 
