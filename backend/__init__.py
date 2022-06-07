@@ -11,7 +11,7 @@ def index():
 def reg():
     # if flask.request.method == 'POST':
     id = database.user_add(flask.request.form['nickname'])
-    return id
+    return flask.Response(response=id, status=http.HTTPStatus.OK)
     #flask.Response("", status=http.HTTPStatus.ACCEPTED)
     #return flask.Response("", status=http.HTTPStatus.BAD_REQUEST)
 
