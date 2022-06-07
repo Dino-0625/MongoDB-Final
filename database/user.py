@@ -11,7 +11,7 @@ ID_LEN = 6
 collection = database.db.user
 
 
-def random_id() -> str:
+def _random_id() -> str:
     id = [secrets.choice(string.ascii_letters) for _ in range(ID_LEN)]
     return "".join(id)
 
@@ -20,12 +20,12 @@ def user_add(nickname: str) -> bool:
     """add new user when someone first come into chatroom"""
     logging.info("inserting user \"{}\"".format(nickname))
     
-    user_id = random_id()
+    user_id = _random_id()
     # deal with id duplication, which is rarely happen
     row = collection.find_one({"_id": user_id})
     # row == None if there is no user yet
     while (row != None) and (len(row) != 0):
-        user_id = random_id()
+        user_id = _random_id()
 
     post = {"_id": user_id, "nickname": nickname, "reg_date": datetime.datetime.utcnow()}
     try:

@@ -1,4 +1,4 @@
-import database
 import backend
 
-import flask
+if __name__ == "__main__":
+    backend.run_backend()
