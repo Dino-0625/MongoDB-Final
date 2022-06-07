@@ -13,7 +13,7 @@ def reg():
     if database.user_add(flask.request.form['nickname']):
         return flask.Response("", status=http.HTTPStatus.ACCEPTED)
     else:
-        pass
+        return flask.Response("", status=http.HTTPStatus.BAD_REQUEST)
 
 # @app.route('/chat', methods = ['GET','POST'])
 # def chat():
