@@ -25,7 +25,6 @@ function getUserId() {
 }
 
 function reloadChatRoom() {
-    console.log("reload");
     let messagesText = httpGet("/message");
     let messages = JSON.parse(messagesText);
     let html = "";
@@ -41,7 +40,7 @@ function start() {
     messageButton = document.getElementById("send-button");
     messageButton.addEventListener("click", sendMessage, false);
     reloadChatRoom();
-    setInterval(reloadChatRoom, 100);
+    setInterval(reloadChatRoom, 300);
 }
 
 window.addEventListener("load", start);

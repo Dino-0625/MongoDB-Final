@@ -22,7 +22,6 @@ def chat():
 
 @app.route('/message', methods = ['GET'])
 def message_get() -> str:
-    print(database.message_get_all())
     return json.dumps(database.message_get_all())
 
 @app.route('/message',methods = ['POST'])
