@@ -16,7 +16,7 @@ def _random_id() -> str:
     return "".join(id)
 
 
-def user_add(nickname: str) -> bool:
+def user_add(nickname: str) -> str:
     """add new user when someone first come into chatroom"""
     logging.info("inserting user \"{}\"".format(nickname))
     
@@ -31,23 +31,25 @@ def user_add(nickname: str) -> bool:
     try:
         post_id = collection.insert_one(post).inserted_id
         logging.info("user \"{}\" inserted successfully with id \"{}\"".format(nickname, post_id))
-        return True
+        return user_id
     except Exception as err:
         logging.warning("cannot insert user due to the following error:\n{}".format(err))
-        return False
+        return ""
 
 
-def user_change_name(user_id: str, new_name: str):
+def user_change_name(user_id: str, new_name: str) -> bool:
     """change user nickname"""
     logging.info("user \"{}\" is changing nickname to \"{}\"".format(user_id, new_name))
     try:
         collection.update_one({"_id": user_id}, {"$set": {"nickname": new_name}})
         logging.info("user \"{}\" nickname changed successfully".format(user_id))
+        return True
     except Exception as err:
         logging.log("user \"{}\" nickname change failed with following error:\n{}".format(user_id, err))
+        return False
 
 
-def user_delete(user_id: str):
+def user_delete(user_id: str) -> bool:
     """delete user with corresponding messages"""
     logging.info("user \"{}\" is deleting".format(user_id))
     try:
@@ -55,9 +57,11 @@ def user_delete(user_id: str):
         # delete corresponding messages
         database.message_delete_all(user_id)
         logging.info("user \"{}\" deleted successfully".format(user_id))
+        return True
     except Exception as err:
         logging.log("user \"{}\" failed to delete with following error:\n{}".format(user_id, err))
-
+        return False
+        
 
 def user_id_to_nickname(user_id: str) -> str:
     """return user nickname from id"""
