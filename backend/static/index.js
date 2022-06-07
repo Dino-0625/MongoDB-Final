@@ -10,11 +10,13 @@ function start() {
     hiddenFrame = document.getElementById("hidden-frame");
 }
 
+// do http post
 function registerUser() {
-    console.log("register");
-    document.getElementById("form-nickname").value = nicknameInput.value;
-    document.getElementById("reg-form").submit();
-    window.location = "/chat"
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("post", "/user");
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("nickname=" + nicknameInput.value);
+    console.log(xmlhttp.responseText);
 }
 
 window.addEventListener("load", start);
