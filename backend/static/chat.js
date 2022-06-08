@@ -36,7 +36,7 @@ function reloadChatRoom() {
       msgTime = time.join(":");
 
       html = "<label class='user-name'>" +
-        messages[i]["user_name"] +
+        messages[i]["user_name"] + "(" + messages[i]["user_id"] + ")" +
         ":</label><label class='rounded-pill bg-fill'>" +
         "&nbsp;&nbsp;" + messages[i]["msg"] + "&nbsp;&nbsp;" +
         "</label><label class='time-label'>" +
