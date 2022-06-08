@@ -24,6 +24,14 @@ def message_get_between_dates(date_begin: datetime.datetime, date_end: datetime.
     return list(msg_list)
 
 
+def message_get_count_of_user(user_id: str) -> int:
+    return len(list(collection.find({"user_id": user_id})))
+
+
+def message_get_avg_character_count_of_user(user_id: str) -> int:
+    return collection.aggregate
+
+
 def message_insert(user_id: str, msg: str) -> bool:
     """add new message into database"""
     # check if there's user or not
