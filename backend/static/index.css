@@ -2,6 +2,7 @@ body {
   background-image: url("imgs/wp8724850.jpg");
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
 }
 

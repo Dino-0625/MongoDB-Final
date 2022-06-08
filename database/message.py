@@ -46,7 +46,9 @@ def message_insert(user_id: str, msg: str) -> bool:
         "_id": _find_next_id(), 
         "user_id": user_id,
         "user_name": user_name,
-        "msg": msg, "date": datetime.datetime.utcnow().isoformat(),
+        "msg": msg,
+        "msg_len": len(msg),
+        "date": datetime.datetime.now().isoformat(),
         }
 
     try:

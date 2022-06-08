@@ -2,6 +2,7 @@ let messageBox;
 let messageInput;
 let messageButton;
 let userId;
+let updateInterval;
 
 function sendMessage() {
   let xmlhttp = new XMLHttpRequest();
@@ -12,6 +13,7 @@ function sendMessage() {
   };
   xmlhttp.send("user_id=" + getUserId() + "&message=" + messageInput.value);
   messageInput.value = "";
+  messageButton.disabled = true;
 }
 
 function getUserId() {
@@ -28,7 +30,19 @@ function reloadChatRoom() {
 
     let html = "";
     for (let i = 0; i < messages.length; i++) {
-      html = "<label>" + messages[i]["msg"] + "</label><br>" + html;
+      let msgTime = new Date(messages[i]["date"]).toLocaleTimeString();
+      let time = msgTime.split(":");
+      time = time.slice(0, time.length-1);
+      msgTime = time.join(":");
+
+      html = "<label class='user-name'>" +
+        messages[i]["user_name"] +
+        ":</label><label class='rounded-pill bg-fill'>" +
+        "&nbsp;&nbsp;" + messages[i]["msg"] + "&nbsp;&nbsp;" +
+        "</label><label class='time-label'>" +
+        msgTime +
+        "</label><br>" +
+        html;
     }
     messageBox.innerHTML = html;
   }
@@ -50,9 +64,12 @@ function start() {
     if (e.key == "Enter") {
       messageButton.click();
     }
-  });
+  }, false);
+  messageInput.addEventListener("input", () => {
+    messageButton.disabled = (messageInput.value.length == 0);
+  }, false);
   reloadChatRoom();
-  setInterval(reloadChatRoom, 300);
+  // updateInterval = setInterval(reloadChatRoom, 300);
 }
 
 window.addEventListener("load", start);
