@@ -39,6 +39,8 @@ function reloadChatRoom() {
       let time = msgTime.split(":");
       time = time.slice(0, time.length - 1);
       msgTime = time.join(":");
+      let msg = messages[i]["msg"];
+      msg = msg.replace("\n", "<br>");
 
       let my_id = localStorage.getItem("user-id");
       let dialog = "<div class='row'>";
@@ -46,7 +48,7 @@ function reloadChatRoom() {
         // my message
         dialog += "<div class='user local'>";
         dialog += "<div class='text text-break'>";
-        dialog += messages[i]["msg"];
+        dialog += msg;
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
         dialog += "</div>";
@@ -57,7 +59,7 @@ function reloadChatRoom() {
         dialog += messages[i]["user_name"];
         dialog += "</div>";
         dialog += "<div class='text text-break'>";
-        dialog += messages[i]["msg"];
+        dialog += msg;
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
         dialog += "</div>";
