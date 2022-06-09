@@ -1,4 +1,4 @@
 import backend
 
 if __name__ == "__main__":
-    backend.run_backend()
+    backend.run()
