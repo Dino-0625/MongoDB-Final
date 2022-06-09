@@ -10,7 +10,6 @@ function start() {
 
   submitButton = document.getElementById("submit-button");
   submitButton.addEventListener("click", registerUser, false);
-  submitButton.disabled = true;
 
   nicknameInput = document.getElementById("nickname");
   nicknameInput.addEventListener("keypress", (e) => {
@@ -19,7 +18,7 @@ function start() {
     }
   }, false);
   nicknameInput.addEventListener("input", () => {
-    submitButton.disabled = (submitButton.value.length == 0);
+    submitButton.disabled = (nicknameInput.value.length == 0);
   }, false);
 }
 
