@@ -25,10 +25,72 @@ def get_between_dates(date_begin: datetime.datetime, date_end: datetime.datetime
     return list(msg_list)
 
 
+def get_count_of_everyone() -> list:
+    query = [
+        {
+            "$group": {
+                "_id": "$user_id",
+                "count": {
+                    "$sum": 1,
+                },
+            }
+        }
+    ]
+    try:
+        result = list(collection.aggregate(query))
+        return result
+    except Exception as err:
+        logging.warning(
+            "Getting message count of everyone: {}".format(err))
+        return list()
+
+
+def get_char_count_of_everyone() -> list:
+    query = [
+        {
+            "$group": {
+                "_id": "$user_id",
+                "count": {
+                    "$sum": {"$strLenCP": "$msg"},
+                },
+            }
+        }
+    ]
+    try:
+        result = list(collection.aggregate(query))
+        return result
+    except Exception as err:
+        logging.warning(
+            "Getting message char count of everyone: {}".format(err))
+        return list()
+
+
+def get_avg_msg_len_of_everyone() -> list:
+    query = [
+        {
+            "$group": {
+                "_id": "$user_id",
+                "avg": {
+                    "$avg": {"$strLenCP": "$msg"},
+                },
+            }
+        }
+    ]
+    try:
+        result = list(collection.aggregate(query))
+        return result
+    except Exception as err:
+        logging.warning(
+            "Getting message avg len of everyone: {}".format(err))
+        return list()
 
 
 def get_count_of_user(user_id: str) -> int:
-    return collection.count_documents({"user_id": user_id})
+    try:
+        return collection.count_documents({"user_id": user_id})
+    except Exception as err:
+        logging.warning(
+            "Getting message count of user \"{}\": {}".format(user_id, err))
 
 
 def get_char_count_of_user(user_id: str) -> int:
@@ -51,11 +113,12 @@ def get_char_count_of_user(user_id: str) -> int:
         result = list(collection.aggregate(query))
         return result[0]["total"]
     except Exception as err:
-        logging.warning("Getting message char count: {}".format(err))
+        logging.warning(
+            "Getting message char count of user \"{}\": {}".format(user_id, err))
         return -1
 
 
-def get_avg_character_count_of_user(user_id: str) -> int:
+def get_avg_msg_len_of_user(user_id: str) -> float:
     query = [
         {
             "$match": {
@@ -75,7 +138,8 @@ def get_avg_character_count_of_user(user_id: str) -> int:
         result = list(collection.aggregate(query))
         return result[0]["avg"]
     except Exception as err:
-        logging.warning("Getting message char avg: {}".format(err))
+        logging.warning(
+            "Getting message avg len of user \"{}\": {}".format(user_id, err))
         return -1
 
 
