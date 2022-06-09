@@ -17,3 +17,36 @@ label.user-name {
 label.time-label {
   background-color: white;
 }
+
+#message-box {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#message-bg {
+  height: 80%;
+  /* Fallback for browsers do NOT support vh unit */
+  height: 80vh;
+  /* These two lines are counted as one :-)       */
+
+  margin-top: 10%;
+  margin-top: 10vh;
+
+  width: 80%;
+  width: 80vw;
+
+  /* margin-left: 10%;
+  margin-left: 5vw; */
+
+  background-color: #DCF3CC;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#input-div {
+  margin-bottom: 20px;
+}
