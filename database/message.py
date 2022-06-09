@@ -34,13 +34,13 @@ def message_get_avg_character_count_of_user(user_id: str) -> int:
 
 def message_insert(user_id: str, msg: str) -> bool:
     """add new message into database"""
-    logging.info("Inserting message \"{}\" from user \"{}\"".format(msg, user_name))
-
     # check if there's user or not
     user_name = database.user_id_to_nickname(user_id)
     if user_name == "":
         logging.warning("Failed to insert message because there is no user with id \"{}\"".format(user_id))
         return False
+    
+    logging.info("Inserting message \"{}\" from user \"{}\"".format(msg, user_name))
     
     # cannot send empty string
     if len(msg) == 0:
