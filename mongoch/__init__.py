@@ -27,6 +27,27 @@ def user_info():
     return database.user.get_info(user_id)
 
 
+@app.route("/user", methods=["PATCH"])
+def user_change_name():
+    data = flask.request.get_json()
+    user_id = data["user_id"]
+    new_name = data["new_name"]
+    if database.user.change_name(user_id, new_name):
+        return flask.Response(response="", status=http.HTTPStatus.OK)
+    else:
+        return flask.Response(response="", status=http.HTTPStatus.BAD_REQUEST)
+
+
+@app.route("/user", methods=["DELETE"])
+def user_delete():
+    data = flask.request.get_json()
+    user_id = data["user_id"]
+    if database.user.delete(user_id):
+        return flask.Response(response="", status=http.HTTPStatus.OK)
+    else:
+        return flask.Response(response="", status=http.HTTPStatus.BAD_REQUEST)
+
+
 @app.route("/chat", methods=["GET"])
 def chat():
     return app.send_static_file("chat.html")
