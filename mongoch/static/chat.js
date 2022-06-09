@@ -11,7 +11,7 @@ function sendMessage() {
   xmlhttp.onload = () => {
     reloadChatRoom();
   };
-  xmlhttp.send("user_id=" + getUserId() + "&message=" + messageInput.value);
+  xmlhttp.send("user_id=" + getUserId() + "&message=" + encodeURIComponent(messageInput.value));
   messageInput.value = "";
   messageButton.disabled = true;
 }
