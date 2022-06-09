@@ -15,13 +15,13 @@ logging.basicConfig(stream = sys.stdout,
 
 # connect to database (mongoDB)
 try:
-    logging.info("connecting to mongodb atlas...")
+    logging.info("Connecting to mongodb atlas...")
     client = pymongo.MongoClient("mongodb+srv://{}:{}@cluster0.ybzp5.mongodb.net/?retryWrites=true&w=majority".format(USER_NAME, USER_PASSWORD))
     # the name of this database is "mongoch"
     db = client.mongoch
-    logging.info("connected successfully!")
+    logging.info("Mongodb connected successfully")
 except Exception as e:
-    logging.fatal("connection failed: {}".format(e))
+    logging.fatal("Connection failed: {}".format(e))
     sys.exit(0)
 
 from database.message import *

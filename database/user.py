@@ -18,11 +18,11 @@ def _random_id() -> str:
 
 def user_add(nickname: str) -> str:
     """add new user when someone first come into chatroom"""
-    logging.info("inserting user \"{}\"".format(nickname))
+    logging.info("Inserting user \"{}\"".format(nickname))
 
     # user name cannot be empty string
     if len(nickname) == 0:
-        logging.info("empty user name is rejected")
+        logging.info("Empty user name is rejected")
         return ""
 
     user_id = _random_id()
@@ -35,10 +35,10 @@ def user_add(nickname: str) -> str:
     post = {"_id": user_id, "nickname": nickname, "reg_date": datetime.datetime.now().isoformat()}
     try:
         post_id = collection.insert_one(post).inserted_id
-        logging.info("user \"{}\" inserted successfully with id \"{}\"".format(nickname, post_id))
+        logging.info("User \"{}\" inserted successfully with id \"{}\"".format(nickname, post_id))
         return user_id
     except Exception as err:
-        logging.warning("cannot insert user due to the following error:\n{}".format(err))
+        logging.warning("Cannot insert user due to the following error:\n{}".format(err))
         return ""
 
 
@@ -48,27 +48,27 @@ def user_get_info() -> dict:
 
 def user_change_name(user_id: str, new_name: str) -> bool:
     """change user nickname"""
-    logging.info("user \"{}\" is changing nickname to \"{}\"".format(user_id, new_name))
+    logging.info("User \"{}\" is changing nickname to \"{}\"".format(user_id, new_name))
     try:
         collection.update_one({"_id": user_id}, {"$set": {"nickname": new_name}})
-        logging.info("user \"{}\" nickname changed successfully".format(user_id))
+        logging.info("User \"{}\" nickname changed successfully".format(user_id))
         return True
     except Exception as err:
-        logging.log("user \"{}\" nickname change failed with following error:\n{}".format(user_id, err))
+        logging.log("User \"{}\" nickname change failed with following error:\n{}".format(user_id, err))
         return False
 
 
 def user_delete(user_id: str) -> bool:
     """delete user with corresponding messages"""
-    logging.info("user \"{}\" is deleting".format(user_id))
+    logging.info("User \"{}\" is deleting".format(user_id))
     try:
         collection.delete_one({"_id": user_id})
         # delete corresponding messages
         database.message_delete_all(user_id)
-        logging.info("user \"{}\" deleted successfully".format(user_id))
+        logging.info("User \"{}\" deleted successfully".format(user_id))
         return True
     except Exception as err:
-        logging.log("user \"{}\" failed to delete with following error:\n{}".format(user_id, err))
+        logging.log("User \"{}\" failed to delete with following error:\n{}".format(user_id, err))
         return False
         
 
@@ -78,5 +78,5 @@ def user_id_to_nickname(user_id: str) -> str:
         res = collection.find_one({"_id": user_id}, {"_id": 0, "nickname": 1})
         return res["nickname"]
     except Exception as err:
-        logging.warning("converting user id to nickname:\n{}".format(err))
+        logging.warning("Converting user id to nickname:\n{}".format(err))
         return ""

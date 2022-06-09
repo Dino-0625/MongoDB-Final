@@ -34,17 +34,17 @@ def message_get_avg_character_count_of_user(user_id: str) -> int:
 
 def message_insert(user_id: str, msg: str) -> bool:
     """add new message into database"""
-    logging.info("inserting message \"{}\" from user \"{}\"".format(msg, user_name))
+    logging.info("Inserting message \"{}\" from user \"{}\"".format(msg, user_name))
 
     # check if there's user or not
     user_name = database.user_id_to_nickname(user_id)
     if user_name == "":
-        logging.warning("failed to insert message because there is no user with id \"{}\"".format(user_id))
+        logging.warning("Failed to insert message because there is no user with id \"{}\"".format(user_id))
         return False
     
     # cannot send empty string
     if len(msg) == 0:
-        logging.info("empty message is rejected")
+        logging.info("Empty message is rejected")
         return False
 
     post = {
@@ -58,10 +58,10 @@ def message_insert(user_id: str, msg: str) -> bool:
 
     try:
         post_id = collection.insert_one(post).inserted_id
-        logging.info("message \"{}\" inserted successfully with id {}".format(msg, post_id))
+        logging.info("Message \"{}\" inserted successfully with id {}".format(msg, post_id))
         return True
     except Exception as err:
-        logging.warning("cannot insert chat message due to the following error:\n{}".format(err))
+        logging.warning("Cannot insert chat message due to the following error:\n{}".format(err))
         return False
 
 
@@ -80,31 +80,31 @@ def _find_next_id() -> int:
 def message_delete_one(user_id: str, msg_id: int) -> bool:
     """delete one message"""
     try:
-        logging.info("deleting message \"{}\" from user \"{}\"".format(msg_id, user_id))
+        logging.info("Deleting message \"{}\" from user \"{}\"".format(msg_id, user_id))
         collection.delete_one({"user_id": user_id, "_id": msg_id})
         return True
     except Exception as err:
-        logging.warning("cannot delete message from user \"{}\" due to the following error:{}\n".format(user_id, err))
+        logging.warning("Cannot delete message from user \"{}\" due to the following error:{}\n".format(user_id, err))
         return False
 
 
 def message_delete_all(user_id: str) -> bool:
     """delete all messages from one user"""
     try:
-        logging.info("deleting all message from user \"{}\"".format(user_id))
+        logging.info("Deleting all message from user \"{}\"".format(user_id))
         collection.delete_many({"user_id": user_id})
         return True
     except Exception as err:
-        logging.warning("cannot delete all messages from user \"{}\" due to the following error:{}\n".format(user_id, err))
+        logging.warning("Cannot delete all messages from user \"{}\" due to the following error:{}\n".format(user_id, err))
         return False
 
 
 def message_edit(user_id: str, msg_id: int, new_msg: str) -> bool:
     """edit one message from one user"""
     try:
-        logging.info("editing message from user \"{}\"".format(user_id))
+        logging.info("Editing message from user \"{}\"".format(user_id))
         collection.update_one({"user_id": user_id, "_id": msg_id}, {"$set": {"msg": new_msg}})
         return True
     except Exception as err:
-        logging.warning("cannot delete all messages from user \"{}\" due to the following error:{}\n".format(user_id, err))
+        logging.warning("Cannot delete all messages from user \"{}\" due to the following error:{}\n".format(user_id, err))
         return False
