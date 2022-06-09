@@ -106,5 +106,5 @@ def message_edit(user_id: str, msg_id: int, new_msg: str) -> bool:
         collection.update_one({"user_id": user_id, "_id": msg_id}, {"$set": {"msg": new_msg}})
         return True
     except Exception as err:
-        logging.warning("Cannot delete all messages from user \"{}\" due to the following error:{}\n".format(user_id, err))
+        logging.warning("Cannot edit messages from user \"{}\" due to the following error:{}\n".format(user_id, err))
         return False
