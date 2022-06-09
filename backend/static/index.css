@@ -11,8 +11,8 @@ body {
   font-size: 10em;
   font-weight: bold;
 
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: olive;
 }
 
 .no-display {
