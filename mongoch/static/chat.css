@@ -10,6 +10,10 @@ body {
   background-size: cover;
 }
 
+textarea {
+  resize: none;
+}
+
 .bg-fill {
   background-color: aqua;
 }
