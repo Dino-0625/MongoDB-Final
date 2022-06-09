@@ -6,7 +6,7 @@ import flask
 import database
 
 
-app = flask.Flask("mongoch", static_url_path='')
+app = flask.Flask(__name__, static_url_path='')
 
 
 @app.route('/', methods=['GET', 'POST'])
