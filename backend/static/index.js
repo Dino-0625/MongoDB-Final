@@ -10,12 +10,17 @@ function start() {
 
   submitButton = document.getElementById("submit-button");
   submitButton.addEventListener("click", registerUser, false);
+  submitButton.disabled = true;
+
   nicknameInput = document.getElementById("nickname");
   nicknameInput.addEventListener("keypress", (e) => {
     if (e.key == "Enter") {
       submitButton.click();
     }
-  });
+  }, false);
+  nicknameInput.addEventListener("input", () => {
+    submitButton.disabled = (submitButton.value.length == 0);
+  }, false);
 }
 
 // do http post

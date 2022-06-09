@@ -19,7 +19,12 @@ def _random_id() -> str:
 def user_add(nickname: str) -> str:
     """add new user when someone first come into chatroom"""
     logging.info("inserting user \"{}\"".format(nickname))
-    
+
+    # user name cannot be empty string
+    if len(nickname) == 0:
+        logging.info("empty user name is rejected")
+        return ""
+
     user_id = _random_id()
     # deal with id duplication, which is rarely happen
     row = collection.find_one({"_id": user_id})
@@ -27,7 +32,7 @@ def user_add(nickname: str) -> str:
     while (row != None) and (len(row) != 0):
         user_id = _random_id()
 
-    post = {"_id": user_id, "nickname": nickname, "reg_date": datetime.datetime.utcnow()}
+    post = {"_id": user_id, "nickname": nickname, "reg_date": datetime.datetime.now().isoformat()}
     try:
         post_id = collection.insert_one(post).inserted_id
         logging.info("user \"{}\" inserted successfully with id \"{}\"".format(nickname, post_id))
@@ -35,6 +40,10 @@ def user_add(nickname: str) -> str:
     except Exception as err:
         logging.warning("cannot insert user due to the following error:\n{}".format(err))
         return ""
+
+
+def user_get_info() -> dict:
+    return {}
 
 
 def user_change_name(user_id: str, new_name: str) -> bool:
