@@ -113,6 +113,11 @@ label.time-label {
   align-items: center;
 }
 
+#message-input {
+  height: 48px;
+  max-height: 160px;
+}
+
 #input-div {
   margin-top: 10px;
   margin-bottom: 20px;

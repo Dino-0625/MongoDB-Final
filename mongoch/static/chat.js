@@ -3,6 +3,7 @@ let messageInput;
 let messageButton;
 let userId;
 let updateInterval;
+let shiftPressed;
 
 function sendMessage() {
   let xmlhttp = new XMLHttpRequest();
@@ -13,11 +14,10 @@ function sendMessage() {
   };
   xmlhttp.send(
     "user_id=" +
-      getUserId() +
-      "&message=" +
-      encodeURIComponent(messageInput.value)
+    getUserId() +
+    "&message=" +
+    encodeURIComponent(messageInput.value)
   );
-  messageInput.value = "";
   messageButton.disabled = true;
 }
 
@@ -56,7 +56,7 @@ function reloadChatRoom() {
         // not my message
         dialog += "<div class='user remote'>";
         dialog += "<div class='name'>";
-        dialog += messages[i]["user_name"];
+        dialog += messages[i]["user_name"] + "<br>#" + messages[i]["user_id"];
         dialog += "</div>";
         dialog += "<div class='text text-break'>";
         dialog += msg;
@@ -79,11 +79,15 @@ function start() {
   messageButton = document.getElementById("send-button");
   messageButton.addEventListener("click", sendMessage, false);
   messageInput.addEventListener(
-    "keypress",
+    "keydown",
     (e) => {
-      if (e.key == "Enter") {
+      // press shift key + enter means new line
+      if (e.key == "Enter" && !e.shiftKey) {
+        e.preventDefault();
         messageButton.click();
-      }
+        messageInput.value = "";
+        autoHeight(messageInput);
+      } 
     },
     false
   );
@@ -94,11 +98,17 @@ function start() {
       if (messageInput.value.length >= 5000) {
         messageInput.value = messageInput.value.substring(0, 5000);
       }
+      autoHeight(messageInput);
     },
     false
   );
   reloadChatRoom();
   // updateInterval = setInterval(reloadChatRoom, 300);
+}
+
+function autoHeight(elem) {  /* javascript */
+  elem.style.height = "1px";
+  elem.style.height = (elem.scrollHeight + 2) + "px";
 }
 
 // if user not registered, redirect to main page
