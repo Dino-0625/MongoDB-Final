@@ -45,6 +45,7 @@ function reloadChatRoom() {
         html;
     }
     messageBox.innerHTML = html;
+    messageBox.scrollTo(0, messageBox.scrollHeight);
   }
   xmlHttp.send(null);
 }

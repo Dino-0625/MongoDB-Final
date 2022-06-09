@@ -19,21 +19,23 @@ label.time-label {
 }
 
 #message-box {
+  margin-top: 20px;
+  margin-bottom: 10px;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
 #message-bg {
-  height: 80%;
+  height: 85%;
   /* Fallback for browsers do NOT support vh unit */
-  height: 80vh;
+  height: 85vh;
   /* These two lines are counted as one :-)       */
 
-  margin-top: 10%;
-  margin-top: 10vh;
+  margin-top: 7.5%;
+  margin-top: 7.5vh;
 
-  width: 80%;
-  width: 80vw;
+  width: 85%;
+  width: 85vw;
 
   /* margin-left: 10%;
   margin-left: 5vw; */
@@ -48,5 +50,6 @@ label.time-label {
 }
 
 #input-div {
+  margin-top: 10px;
   margin-bottom: 20px;
 }
