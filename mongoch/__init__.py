@@ -16,7 +16,7 @@ def index():
 
 @app.route('/user', methods=['POST'])
 def user_reg():
-    id = database.user_add(flask.request.form['nickname'])
+    id = database.user.insert(flask.request.form['nickname'])
     id = html.escape(id)
     return flask.Response(response=id, status=http.HTTPStatus.OK)
 
@@ -28,7 +28,7 @@ def chat():
 
 @app.route('/message', methods=['GET'])
 def message_get() -> str:
-    return json.dumps(database.message_get_all())
+    return json.dumps(database.message.get_all())
 
 
 @app.route('/message', methods=['POST'])
@@ -36,7 +36,7 @@ def message_post():
     user_id = flask.request.form['user_id']
     msg = flask.request.form['message']
     msg = html.escape(msg)
-    database.message_insert(user_id, msg)
+    database.message.insert(user_id, msg)
     return flask.Response(response="", status=http.HTTPStatus.OK)
 
 

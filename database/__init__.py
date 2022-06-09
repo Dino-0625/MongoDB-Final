@@ -24,5 +24,5 @@ except Exception as e:
     logging.fatal("Connection failed: {}".format(e))
     sys.exit(0)
 
-from database.message import *
-from database.user import *
+from database import message
+from database import user

@@ -10,7 +10,7 @@ MAX_MSG_SHOW_COUNT = 10000
 collection = database.db.message
 
 
-def message_get_all() -> list:
+def get_all() -> list:
     """retur all message"""
     # from new to old
     msg_list = collection.find().sort(
@@ -18,18 +18,20 @@ def message_get_all() -> list:
     return list(msg_list)
 
 
-def message_get_between_dates(date_begin: datetime.datetime, date_end: datetime.datetime) -> list:
+def get_between_dates(date_begin: datetime.datetime, date_end: datetime.datetime) -> list:
     """return all message between two dates"""
     msg_list = collection.find({"date": {"$gt": date_begin.isoformat()}, "date": {"$lt": date_end.isoformat()}}) \
         .sort("_id", pymongo.DESCENDING).limit(MAX_MSG_SHOW_COUNT)
     return list(msg_list)
 
 
-def message_get_count_of_user(user_id: str) -> int:
+
+
+def get_count_of_user(user_id: str) -> int:
     return collection.count_documents({"user_id": user_id})
 
 
-def message_get_char_count_of_user(user_id: str) -> int:
+def get_char_count_of_user(user_id: str) -> int:
     query = [
         {
             "$match": {
@@ -53,7 +55,7 @@ def message_get_char_count_of_user(user_id: str) -> int:
         return -1
 
 
-def message_get_avg_character_count_of_user(user_id: str) -> int:
+def get_avg_character_count_of_user(user_id: str) -> int:
     query = [
         {
             "$match": {
@@ -77,10 +79,10 @@ def message_get_avg_character_count_of_user(user_id: str) -> int:
         return -1
 
 
-def message_insert(user_id: str, msg: str) -> bool:
+def insert(user_id: str, msg: str) -> bool:
     """add new message into database"""
     # check if there's user or not
-    user_name = database.user_id_to_nickname(user_id)
+    user_name = database.user.id_to_nickname(user_id)
     if user_name == "":
         logging.warning(
             "Failed to insert message because there is no user with id \"{}\"".format(user_id))
@@ -126,7 +128,7 @@ def _find_next_id() -> int:
     return max_id + 1
 
 
-def message_delete_one(user_id: str, msg_id: int) -> bool:
+def delete_one(user_id: str, msg_id: int) -> bool:
     """delete one message"""
     try:
         logging.info(
@@ -139,7 +141,7 @@ def message_delete_one(user_id: str, msg_id: int) -> bool:
         return False
 
 
-def message_delete_all(user_id: str) -> bool:
+def delete_all(user_id: str) -> bool:
     """delete all messages from one user"""
     try:
         logging.info("Deleting all message from user \"{}\"".format(user_id))
@@ -151,7 +153,7 @@ def message_delete_all(user_id: str) -> bool:
         return False
 
 
-def message_edit(user_id: str, msg_id: int, new_msg: str) -> bool:
+def edit_one(user_id: str, msg_id: int, new_msg: str) -> bool:
     """edit one message from one user"""
     try:
         logging.info("Editing message from user \"{}\"".format(user_id))

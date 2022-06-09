@@ -16,7 +16,7 @@ def _random_id() -> str:
     return "".join(id)
 
 
-def user_add(nickname: str) -> str:
+def insert(nickname: str) -> str:
     """add new user when someone first come into chatroom"""
     logging.info("Inserting user \"{}\"".format(nickname))
 
@@ -48,16 +48,16 @@ def user_add(nickname: str) -> str:
         return ""
 
 
-def user_get_info(user_id: str) -> dict:
+def get_info(user_id: str) -> dict:
     """get user information"""
     logging.info("Getting info of user \"{}\"".format(user_id))
     try:
         info_norm = collection.find_one({"_id": user_id})
         info = dict(info_norm)
         info.update(
-            total_msg_count=database.message_get_count_of_user(user_id),
-            totoal_char_count=database.message_get_char_count_of_user(user_id),
-            avg_msg_len=database.message_get_avg_character_count_of_user(
+            total_msg_count=database.message.get_count_of_user(user_id),
+            totoal_char_count=database.message.get_char_count_of_user(user_id),
+            avg_msg_len=database.message.get_avg_character_count_of_user(
                 user_id),
         )
         return info
@@ -67,7 +67,7 @@ def user_get_info(user_id: str) -> dict:
         return dict()
 
 
-def user_change_name(user_id: str, new_name: str) -> bool:
+def change_name(user_id: str, new_name: str) -> bool:
     """change user nickname"""
     logging.info(
         "User \"{}\" is changing nickname to \"{}\"".format(user_id, new_name))
@@ -83,13 +83,13 @@ def user_change_name(user_id: str, new_name: str) -> bool:
         return False
 
 
-def user_delete(user_id: str) -> bool:
+def delete(user_id: str) -> bool:
     """delete user with corresponding messages"""
     logging.info("User \"{}\" is deleting".format(user_id))
     try:
         collection.delete_one({"_id": user_id})
         # delete corresponding messages
-        database.message_delete_all(user_id)
+        database.message.delete_all(user_id)
         logging.info("User \"{}\" deleted successfully".format(user_id))
         return True
     except Exception as err:
@@ -98,7 +98,7 @@ def user_delete(user_id: str) -> bool:
         return False
 
 
-def user_id_to_nickname(user_id: str) -> str:
+def id_to_nickname(user_id: str) -> str:
     """return user nickname from id"""
     try:
         res = collection.find_one({"_id": user_id}, {"_id": 0, "nickname": 1})
