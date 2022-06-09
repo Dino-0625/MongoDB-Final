@@ -21,6 +21,18 @@ function sendMessage() {
   messageButton.disabled = true;
 }
 
+function deleteMessage(msgId) {
+  let request = new Request("/message", {
+    method: "DELETE",
+    headers: new Headers({
+      "Content-Type": "application/json"
+    }),
+    body: JSON.stringify({ "user_id": getUserId(), "msg_id": msgId }),
+  });
+
+  fetch(request).then(() => reloadChatRoom());
+}
+
 function getUserId() {
   return localStorage.getItem("user-id");
 }
@@ -54,6 +66,8 @@ function reloadChatRoom() {
         dialog += msg;
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
+        dialog += "<span><button class='btn btn-outline-danger' onclick='deleteMessage(" +
+          String(messages[i]["_id"]) + ")'>刪除</button></span>";
         dialog += "</div>";
       } else {
         // not my message
@@ -91,7 +105,7 @@ function start() {
         messageButton.click();
         messageInput.value = "";
         autoHeight(messageInput);
-      } 
+      }
     },
     false
   );

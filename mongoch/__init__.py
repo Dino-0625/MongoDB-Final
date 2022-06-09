@@ -42,8 +42,21 @@ def message_post():
     user_id = flask.request.form["user_id"]
     msg = flask.request.form["message"]
     msg = html.escape(msg)
-    database.message.insert(user_id, msg)
-    return flask.Response(response="", status=http.HTTPStatus.OK)
+    if database.message.insert(user_id, msg):
+        return flask.Response(response="", status=http.HTTPStatus.OK)
+    else:
+        return flask.Response(response="", status=http.HTTPStatus.BAD_REQUEST)
+
+
+@app.route("/message", methods=["DELETE"])
+def message_delete():
+    data = flask.request.get_json()
+    user_id = data["user_id"]
+    msg_id = data["msg_id"]
+    if database.message.delete_one(user_id, msg_id):
+        return flask.Response(response="", status=http.HTTPStatus.OK)
+    else:
+        return flask.Response(response="", status=http.HTTPStatus.BAD_REQUEST)
 
 
 @app.route("/statistic", methods=["GET"])
