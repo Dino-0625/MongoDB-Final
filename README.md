@@ -1,7 +1,5 @@
 # MongoDB-Final
-MongoDB chat system
+MongoDB chatting system
 
 # Additional Python packages
-flask  
-pymongo  
-dnspython  
+```pip install flask pymongo dnspython```  
