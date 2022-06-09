@@ -1,3 +1,7 @@
+* {
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
 body {
   background-image: url("imgs/wp8724850.jpg");
   background-position: center;
@@ -8,6 +12,7 @@ body {
 
 .title {
   color: white;
+  font-family: 'Roboto Mono', monospace;
   font-size: 10vw;
   font-weight: bold;
 
