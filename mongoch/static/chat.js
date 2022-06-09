@@ -40,37 +40,27 @@ function reloadChatRoom() {
       time = time.slice(0, time.length - 1);
       msgTime = time.join(":");
 
-      // html = "<label class='user-name'>" +
-      //   messages[i]["user_name"] + "(" + messages[i]["user_id"] + ")" +
-      //   ":</label><label class='rounded-pill bg-fill'>" +
-      //   "&nbsp;&nbsp;" + messages[i]["msg"] + "&nbsp;&nbsp;" +
-      //   "</label><label class='time-label'>" +
-      //   msgTime +
-      //   "</label><br>" +
-      //   html;
       let my_id = localStorage.getItem("user-id");
-      let dialog = "";
-      dialog += "<div class='dialogue'>";
+      let dialog = "<div class='row'>";
       if (messages[i]["user_id"] == my_id) {
-        //my message
+        // my message
         dialog += "<div class='user local'>";
-        dialog += "<div class='avatar'>";
-        dialog += "<div class='name'>";
-        dialog += messages[i]["user_name"];
-        dialog += "</div></div>";
-        dialog += "<div class='text'>";
+        dialog += "<div class='text text-break'>";
         dialog += messages[i]["msg"];
-        dialog += "</div></div>";
+        dialog += "</div>";
+        dialog += "<span class='msg-time'>" + msgTime + "</span>";
+        dialog += "</div>";
       } else {
-        //not my message
+        // not my message
         dialog += "<div class='user remote'>";
-        dialog += "<div class='avatar'>";
         dialog += "<div class='name'>";
         dialog += messages[i]["user_name"];
-        dialog += "</div></div>";
-        dialog += "<div class='text'>";
+        dialog += "</div>";
+        dialog += "<div class='text text-break'>";
         dialog += messages[i]["msg"];
-        dialog += "</div></div>";
+        dialog += "</div>";
+        dialog += "<span class='msg-time'>" + msgTime + "</span>";
+        dialog += "</div>";
       }
       dialog += "</div>";
       html = dialog + html;
@@ -99,6 +89,9 @@ function start() {
     "input",
     () => {
       messageButton.disabled = messageInput.value.length == 0;
+      if (messageInput.value.length >= 5000) {
+        messageInput.value = messageInput.value.substring(0, 5000);
+      }
     },
     false
   );

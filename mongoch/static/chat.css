@@ -28,59 +28,40 @@ label.time-label {
   margin-bottom: 20px;
 }
 
-.user .avatar {
-  width: 60px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.user .pic {
-  border-radius: 50%;
-  overflow: hidden;
-  /*img {
-    width: 100%;
-    vertical-align: middle;
-  }*/
-}
-
 .user .name {
   color: #333;
 }
 
 .user .text {
   background-color: #aaa;
-  padding: 16px;
-  border-radius: 10px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 16px;
   position: relative;
+
+  max-width: 70%;
 }
 
 .remote .text {
-    margin-left: 20px;
-    margin-right: 80px;
-    color: #000;
-    font-weight: bold;
-    background-color: #4179f1;
+  margin-left: 20px;
+  margin-right: 10px;
+  color: #000;
+  background-color: #fff;
 }
 
-.remote .text::before{
-  border-right: 10px solid #4179f1;
-  left: -10px;
-}
 .local {
   justify-content: flex-end;
 }
-.local .text {
-    margin-right: 20px;
-    margin-left: 80px;
-    order: -1;
-    background-color: #fff;
-    color: #333;
-} 
 
-.local .text::before {
-  border-left: 10px solid #fff;
-  right: -10px;
-} 
+.local .text {
+  margin-right: 20px;
+  margin-left: 80px;
+  order: -1;
+  background-color: #fff;
+  color: #333;
+}
 
 .dialogue {
   width: 500px;
@@ -91,11 +72,21 @@ label.time-label {
   margin-bottom: 10px;
 }
 
+.msg-time {
+  height: 100%;
+  display: flex;
+  justify-self: flex-end;
+  align-items: flex-end;
+  font-size: x-small;
+}
+
 #message-box {
   margin-top: 20px;
   margin-bottom: 10px;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  height: 100%;
 }
 
 #message-bg {
