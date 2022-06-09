@@ -46,16 +46,12 @@ def message_post():
     return flask.Response(response="", status=http.HTTPStatus.OK)
 
 
-@app.route("/analysis", methods=["GET"])
+@app.route("/statistic", methods=["GET"])
 def analysis():
     user_id = flask.request.args.get("user_id", "", type=str)
     if user_id == "":
         return flask.Response(response="", status=http.HTTPStatus.BAD_REQUEST)
-    return {
-        "total_msg_count": database.message.get_count_of_everyone(),
-        "total_char_count": database.message.get_char_count_of_everyone(),
-        "avg_msg_len": database.message.get_avg_msg_len_of_everyone(),
-    }
+    return database.message.get_all_statistics()
 
 
 def run():

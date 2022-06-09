@@ -54,11 +54,7 @@ def get_info(user_id: str) -> dict:
     try:
         info_norm = collection.find_one({"_id": user_id})
         info = dict(info_norm)
-        info.update(
-            total_msg_count=database.message.get_count_of_user(user_id),
-            totoal_char_count=database.message.get_char_count_of_user(user_id),
-            avg_msg_len=database.message.get_avg_msg_len_of_user(user_id),
-        )
+        info.update(database.message.get_statistic_of_user(user_id))
         return info
     except Exception as err:
         logging.warning(

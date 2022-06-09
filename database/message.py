@@ -25,7 +25,7 @@ def get_between_dates(date_begin: datetime.datetime, date_end: datetime.datetime
     return list(msg_list)
 
 
-def get_count_of_everyone() -> list:
+def get_all_statistics() -> list :
     query = [
         {
             "$group": {
@@ -33,31 +33,18 @@ def get_count_of_everyone() -> list:
                 "name": {
                     "$first": "$user_name",
                 },
-                "count": {
+                "msg_count": {
                     "$sum": 1,
                 },
-            }
-        }
-    ]
-    try:
-        result = list(collection.aggregate(query))
-        return result
-    except Exception as err:
-        logging.warning(
-            "Getting message count of everyone: {}".format(err))
-        return list()
-
-
-def get_char_count_of_everyone() -> list:
-    query = [
-        {
-            "$group": {
-                "_id": "$user_id",
-                "name": {
-                    "$first": "$user_name",
+                "char_count": {
+                    "$sum": {
+                        "$strLenCP": "$msg",
+                    },
                 },
-                "count": {
-                    "$sum": {"$strLenCP": "$msg"},
+                "avg_len": {
+                    "$avg": {
+                        "$strLenCP": "$msg",
+                    },
                 },
             }
         }
@@ -67,42 +54,11 @@ def get_char_count_of_everyone() -> list:
         return result
     except Exception as err:
         logging.warning(
-            "Getting message char count of everyone: {}".format(err))
+            "Getting message statistic of everyone: {}".format(err))
         return list()
 
 
-def get_avg_msg_len_of_everyone() -> list:
-    query = [
-        {
-            "$group": {
-                "_id": "$user_id",
-                "name": {
-                    "$first": "$user_name",
-                },
-                "avg": {
-                    "$avg": {"$strLenCP": "$msg"},
-                },
-            }
-        }
-    ]
-    try:
-        result = list(collection.aggregate(query))
-        return result
-    except Exception as err:
-        logging.warning(
-            "Getting message avg len of everyone: {}".format(err))
-        return list()
-
-
-def get_count_of_user(user_id: str) -> int:
-    try:
-        return collection.count_documents({"user_id": user_id})
-    except Exception as err:
-        logging.warning(
-            "Getting message count of user \"{}\": {}".format(user_id, err))
-
-
-def get_char_count_of_user(user_id: str) -> int:
+def get_statistic_of_user(user_id: str) -> dict:
     query = [
         {
             "$match": {
@@ -112,44 +68,32 @@ def get_char_count_of_user(user_id: str) -> int:
         {
             "$group": {
                 "_id": "null",
-                "total": {
-                    "$sum": {"$strLenCP": "$msg"},
+                "name": {
+                    "$first": "$user_name",
+                },
+                "msg_count": {
+                    "$sum": 1,
+                },
+                "char_count": {
+                    "$sum": {
+                        "$strLenCP": "$msg",
+                    },
+                },
+                "avg_len": {
+                    "$avg": {
+                        "$strLenCP": "$msg",
+                    },
                 },
             }
         }
     ]
     try:
         result = list(collection.aggregate(query))
-        return result[0]["total"]
+        return result[0]
     except Exception as err:
         logging.warning(
-            "Getting message char count of user \"{}\": {}".format(user_id, err))
-        return -1
-
-
-def get_avg_msg_len_of_user(user_id: str) -> float:
-    query = [
-        {
-            "$match": {
-                "user_id": user_id,
-            }
-        },
-        {
-            "$group": {
-                "_id": "null",
-                "avg": {
-                    "$avg": {"$strLenCP": "$msg"},
-                },
-            }
-        }
-    ]
-    try:
-        result = list(collection.aggregate(query))
-        return result[0]["avg"]
-    except Exception as err:
-        logging.warning(
-            "Getting message avg len of user \"{}\": {}".format(user_id, err))
-        return -1
+            "Getting message statistic of user \"{}\": {}".format(user_id, err))
+        return dict()
 
 
 def insert(user_id: str, msg: str) -> bool:
