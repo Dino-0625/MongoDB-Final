@@ -165,7 +165,6 @@ def insert(user_id: str, msg: str) -> bool:
         "user_id": user_id,
         "user_name": user_name,
         "msg": msg,
-        "msg_len": len(msg),
         "date": datetime.datetime.now().isoformat(),
     }
 
