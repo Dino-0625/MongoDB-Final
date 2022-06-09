@@ -103,7 +103,10 @@ def id_to_nickname(user_id: str) -> str:
     """return user nickname from id"""
     try:
         res = collection.find_one({"_id": user_id}, {"_id": 0, "nickname": 1})
-        return res["nickname"]
+        if "nickname" in res:
+            return res["nickname"]
+        else:
+            return ""
     except Exception as err:
         logging.warning("Converting user id to nickname:\n{}".format(err))
         return ""
