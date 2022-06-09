@@ -30,6 +30,9 @@ def get_count_of_everyone() -> list:
         {
             "$group": {
                 "_id": "$user_id",
+                "name": {
+                    "$first": "$user_name",
+                },
                 "count": {
                     "$sum": 1,
                 },
@@ -50,6 +53,9 @@ def get_char_count_of_everyone() -> list:
         {
             "$group": {
                 "_id": "$user_id",
+                "name": {
+                    "$first": "$user_name",
+                },
                 "count": {
                     "$sum": {"$strLenCP": "$msg"},
                 },
@@ -70,6 +76,9 @@ def get_avg_msg_len_of_everyone() -> list:
         {
             "$group": {
                 "_id": "$user_id",
+                "name": {
+                    "$first": "$user_name",
+                },
                 "avg": {
                     "$avg": {"$strLenCP": "$msg"},
                 },
