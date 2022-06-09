@@ -25,7 +25,7 @@ def get_between_dates(date_begin: datetime.datetime, date_end: datetime.datetime
     return list(msg_list)
 
 
-def get_all_statistics() -> list :
+def get_all_statistics() -> list:
     query = [
         {
             "$group": {
