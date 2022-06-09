@@ -1,4 +1,4 @@
-# MongoDB-Final
+# mongoch
 MongoDB chatting system
 
 # Additional Python packages
