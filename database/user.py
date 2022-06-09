@@ -51,6 +51,12 @@ def insert(nickname: str) -> str:
 def get_info(user_id: str) -> dict:
     """get user information"""
     logging.info("Getting info of user \"{}\"".format(user_id))
+
+    name = database.user.id_to_nickname(user_id)
+    if name == "":
+        logging.warning("No such user")
+        return dict()
+
     try:
         info_norm = collection.find_one({"_id": user_id})
         info = dict(info_norm)

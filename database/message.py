@@ -59,6 +59,13 @@ def get_all_statistics() -> list:
 
 
 def get_statistic_of_user(user_id: str) -> dict:
+    logging.info("Getting statistic of user \"{}\"".format(user_id))
+
+    name = database.user.id_to_nickname(user_id)
+    if name == "":
+        logging.warning("No such user")
+        return dict()
+
     query = [
         {
             "$match": {
