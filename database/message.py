@@ -38,7 +38,7 @@ def message_insert(user_id: str, msg: str) -> bool:
 
     # check if there's user or not
     user_name = database.user_id_to_nickname(user_id)
-    if user_name == None:
+    if user_name == "":
         logging.warning("failed to insert message because there is no user with id \"{}\"".format(user_id))
         return False
     
@@ -70,7 +70,7 @@ def _find_next_id() -> int:
     # exception happens when database was not initialized, return id 0
     try:
         cursor = collection.find().sort("_id", pymongo.DESCENDING).limit(1)
-        max_id = cursor[0]["_id"]
+        max_id = int(cursor[0]["_id"])
     except Exception as err:
         logging.warning(err)
         return 0

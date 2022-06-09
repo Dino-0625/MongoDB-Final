@@ -79,4 +79,4 @@ def user_id_to_nickname(user_id: str) -> str:
         return res["nickname"]
     except Exception as err:
         logging.warning("converting user id to nickname:\n{}".format(err))
-        return None
+        return ""
