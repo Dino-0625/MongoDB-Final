@@ -40,7 +40,8 @@ function reloadChatRoom() {
       time = time.slice(0, time.length - 1);
       msgTime = time.join(":");
       let msg = messages[i]["msg"];
-      msg = msg.replace("\n", "<br>");
+      msg = msg.replace(/(?:\r\n|\r|\n)/g, "<br>").
+        replace(/\s/g, "&nbsp;").replace("\t", "&emsp;");
 
       let my_id = localStorage.getItem("user-id");
       let dialog = "<div class='row'>";
@@ -83,6 +84,7 @@ function start() {
     (e) => {
       // press shift key + enter means new line
       if (e.key == "Enter" && !e.shiftKey) {
+        // preventDefault: prevent generating new line
         e.preventDefault();
         messageButton.click();
         messageInput.value = "";
@@ -94,7 +96,7 @@ function start() {
   messageInput.addEventListener(
     "input",
     () => {
-      messageButton.disabled = messageInput.value.length == 0;
+      messageButton.disabled = messageInput.value.replace(/(?:\r\n|\r|\n)/g, "").length == 0;
       if (messageInput.value.length >= 5000) {
         messageInput.value = messageInput.value.substring(0, 5000);
       }
