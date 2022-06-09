@@ -32,7 +32,7 @@ function reloadChatRoom() {
     for (let i = 0; i < messages.length; i++) {
       let msgTime = new Date(messages[i]["date"]).toLocaleTimeString();
       let time = msgTime.split(":");
-      time = time.slice(0, time.length-1);
+      time = time.slice(0, time.length - 1);
       msgTime = time.join(":");
 
       html = "<label class='user-name'>" +
@@ -50,12 +50,6 @@ function reloadChatRoom() {
 }
 
 function start() {
-  userId = localStorage.getItem("user-id");
-  // if user not registered, redirect to main page
-  if (userId === null) {
-    window.location = "/";
-  }
-
   messageBox = document.getElementById("message-box");
   messageInput = document.getElementById("message-input");
   messageButton = document.getElementById("send-button");
@@ -70,6 +64,12 @@ function start() {
   }, false);
   reloadChatRoom();
   // updateInterval = setInterval(reloadChatRoom, 300);
+}
+
+// if user not registered, redirect to main page
+userId = localStorage.getItem("user-id");
+if (userId === null) {
+  window.location = "/";
 }
 
 window.addEventListener("load", start);
