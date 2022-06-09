@@ -40,6 +40,8 @@ function reloadChatRoom() {
       time = time.slice(0, time.length - 1);
       msgTime = time.join(":");
       let msg = messages[i]["msg"];
+
+      // deal with line break and spaces
       msg = msg.replace(/(?:\r\n|\r|\n)/g, "<br>").
         replace(/\s/g, "&nbsp;").replace("\t", "&emsp;");
 
