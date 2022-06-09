@@ -48,6 +48,18 @@ def message_post():
         return flask.Response(response="", status=http.HTTPStatus.BAD_REQUEST)
 
 
+@app.route("/message", methods=["PATCH"])
+def message_update():
+    data = flask.request.get_json()
+    user_id = data["user_id"]
+    msg_id = data["msg_id"]
+    new_msg = data["new_msg"]
+    if database.message.edit_one(user_id, msg_id, new_msg):
+        return flask.Response(response="", status=http.HTTPStatus.OK)
+    else:
+        return flask.Response(response="", status=http.HTTPStatus.BAD_REQUEST)
+
+
 @app.route("/message", methods=["DELETE"])
 def message_delete():
     data = flask.request.get_json()

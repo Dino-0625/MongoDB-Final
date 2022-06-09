@@ -33,6 +33,18 @@ function deleteMessage(msgId) {
   fetch(request).then(() => reloadChatRoom());
 }
 
+function editMessage(msgId, new_msg) {
+  let request = new Request("/message", {
+    method: "PATCH",
+    headers: new Headers({
+      "Content-Type": "application/json"
+    }),
+    body: JSON.stringify({ "user_id": getUserId(), "msg_id": msgId, "new_msg": new_msg }),
+  });
+
+  fetch(request).then(() => reloadChatRoom());
+}
+
 function getUserId() {
   return localStorage.getItem("user-id");
 }
