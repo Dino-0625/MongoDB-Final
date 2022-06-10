@@ -19,6 +19,8 @@ function sendMessage() {
     encodeURIComponent(messageInput.value)
   );
   messageButton.disabled = true;
+  messageInput.value = "";
+  autoHeight(messageInput);
 }
 
 function deleteMessage(msgId) {
@@ -78,7 +80,8 @@ function reloadChatRoom() {
         dialog += msg;
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
-        dialog += "<span><button class='btn btn-outline-danger' onclick='deleteMessage(" +
+        dialog += "<span class='input'group'><button class='btn btn-outline-dark'>編輯</button>" + 
+          "<button class='btn btn-outline-danger' onclick='deleteMessage(" +
           String(messages[i]["_id"]) + ")'>刪除</button></span>";
         dialog += "</div>";
       } else {
@@ -115,8 +118,6 @@ function start() {
         // preventDefault: prevent generating new line
         e.preventDefault();
         messageButton.click();
-        messageInput.value = "";
-        autoHeight(messageInput);
       }
     },
     false
