@@ -118,8 +118,8 @@ function reloadChatRoom() {
         dialog += "<div class='user remote'>";
         dialog += "<div class='name'>";
         dialog += "<span style='font-size: large'>" + messages[i]["user_name"] +
-          "</span><br><span style='font-size: x-small;'>#" +
-          messages[i]["user_id"] + "</span>";
+          "</span><br><a href='#' onclick='showInfoPage(\"" + messages[i]["user_id"] + "\")'><span style='font-size: x-small;'>#" +
+          messages[i]["user_id"] + "</span></a>";
         dialog += "</div>";
         dialog += "<div class='text text-break'>";
         dialog += msg;
@@ -149,9 +149,9 @@ function showInfoPage(userId) {
   xmlHttp.onload = () => {
     let res = JSON.parse(xmlHttp.responseText);
     document.getElementById("nickname-show").innerHTML = "暱稱:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;" + res["nickname"];
-    document.getElementById("msg-count").innerHTML = "發送訊息總數:&emsp;&emsp;&emsp;&emsp;" + res["msg_count"];
-    document.getElementById("char-count").innerHTML = "發送訊息總字元數:&emsp;&emsp;" + res["char_count"];
-    document.getElementById("avg-len").innerHTML = "平均每則訊息字元數:&emsp;" + res["avg_len"];
+    document.getElementById("msg-count").innerHTML = "發送訊息總數:&emsp;&emsp;&emsp;&emsp;" + String(res["msg_count"]);
+    document.getElementById("char-count").innerHTML = "發送訊息總字元數:&emsp;&emsp;" + String(res["char_count"]);
+    document.getElementById("avg-len").innerHTML = "平均每則訊息字元數:&emsp;" + String(res["avg_len"].toFixed(2));
   };
   xmlHttp.send(null);
 }

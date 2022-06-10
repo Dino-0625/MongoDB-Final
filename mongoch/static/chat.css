@@ -146,9 +146,9 @@ label.time-label {
 #info-page {
   display: none;
   position: absolute;
-  width: 40%;
+  width: 60%;
   height: 40%;
-  left: 30%;
+  left: 20%;
   top: 30%;
   background-color: #DDDDDD;
   border-radius: 32px;
@@ -157,7 +157,7 @@ label.time-label {
 }
 
 #close {
-  right: 0;
+  margin-left: 92%;
   font-size: 300%;
 }
 
