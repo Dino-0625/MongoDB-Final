@@ -185,7 +185,7 @@ function start() {
     false
   );
   reloadChatRoom();
-  // updateInterval = setInterval(reloadChatRoom, 300);
+  updateInterval = setInterval(reloadChatRoom, 300);
 }
 
 function autoHeight(elem) {  /* javascript */
