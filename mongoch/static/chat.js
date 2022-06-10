@@ -142,7 +142,6 @@ function reloadChatRoom() {
 }
 
 function showInfoPage(userId) {
-  document.getElementById("info-page").style.display = "block";
   document.getElementById("id-show").innerHTML = "ID:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;" + userId;
   let xmlHttp = new XMLHttpRequest();
   xmlHttp.open("GET", "/user?" + "user_id=" + userId);
@@ -152,6 +151,7 @@ function showInfoPage(userId) {
     document.getElementById("msg-count").innerHTML = "發送訊息總數:&emsp;&emsp;&emsp;&emsp;" + String(res["msg_count"]);
     document.getElementById("char-count").innerHTML = "發送訊息總字元數:&emsp;&emsp;" + String(res["char_count"]);
     document.getElementById("avg-len").innerHTML = "平均每則訊息字元數:&emsp;" + String(res["avg_len"].toFixed(2));
+    document.getElementById("info-page").style.display = "block";
   };
   xmlHttp.send(null);
 }

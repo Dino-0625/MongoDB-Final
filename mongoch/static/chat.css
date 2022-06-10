@@ -162,7 +162,7 @@ label.time-label {
 }
 
 #hint {
-  font-size: small;
+  font-size: medium;
   color: white;
   position: absolute;
   right: 3px;
