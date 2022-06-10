@@ -4,6 +4,8 @@ let messageButton;
 let userId;
 let updateInterval;
 let shiftPressed;
+// to check if reload chatroom or not
+let cachedHTML;
 
 function sendMessage() {
   let xmlhttp = new XMLHttpRequest();
@@ -123,8 +125,13 @@ function reloadChatRoom() {
       dialog += "</div>";
       html = dialog + html;
     }
-    messageBox.innerHTML = html;
-    messageBox.scrollTo(0, messageBox.scrollHeight);
+
+    // only update when not the same
+    if (cachedHTML != html) {
+      messageBox.innerHTML = html;
+      messageBox.scrollTo(0, messageBox.scrollHeight);
+      cachedHTML = html;
+    }
   };
   xmlHttp.send(null);
 }
@@ -158,7 +165,7 @@ function start() {
     false
   );
   reloadChatRoom();
-  // updateInterval = setInterval(reloadChatRoom, 300);
+  updateInterval = setInterval(reloadChatRoom, 300);
 }
 
 function autoHeight(elem) {  /* javascript */
