@@ -110,7 +110,9 @@ function reloadChatRoom() {
         // not my message
         dialog += "<div class='user remote'>";
         dialog += "<div class='name'>";
-        dialog += messages[i]["user_name"] + "<br>#" + messages[i]["user_id"];
+        dialog += "<span style='font-size: large'>" + messages[i]["user_name"] +
+          "</span><br><span style='font-size: x-small;'>#" +
+          messages[i]["user_id"] + "</span>";
         dialog += "</div>";
         dialog += "<div class='text text-break'>";
         dialog += msg;

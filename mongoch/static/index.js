@@ -19,8 +19,8 @@ function start() {
   }, false);
   nicknameInput.addEventListener("input", () => {
     submitButton.disabled = (nicknameInput.value.length == 0);
-    if (nicknameInput.value.length > 20) {
-      nicknameInput.value = nicknameInput.value.substring(0, 20);
+    if (nicknameInput.value.length > 16) {
+      nicknameInput.value = nicknameInput.value.substring(0, 16);
     }
   }, false);
 }
