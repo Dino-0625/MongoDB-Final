@@ -101,7 +101,7 @@ function reloadChatRoom() {
         dialog += msg;
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
-        dialog += "<span class='input'group'><button class='btn btn-outline-dark' onclick='editMessageLabel(" + 
+        dialog += "<span class='msg-time'><button class='btn btn-outline-dark' onclick='editMessageLabel(" + 
           messages[i]["_id"] + ")'>編輯</button>" +
           "<button class='btn btn-outline-danger' onclick='deleteMessage(" +
           String(messages[i]["_id"]) + ")'>刪除</button></span>";
