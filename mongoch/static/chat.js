@@ -47,6 +47,27 @@ function editMessage(msgId, new_msg) {
   fetch(request).then(() => reloadChatRoom());
 }
 
+function editMessageLabel(msgId) {
+  let div = document.getElementById("msg-" + msgId);
+  let textArea = document.createElement("textarea");
+  textArea.classList = "form-control text-wrap";
+  textArea.innerHTML = div.innerHTML;
+  div.innerHTML = "";
+  div.appendChild(textArea);
+  
+  autoHeight(textArea);
+  textArea.addEventListener("keypress", (e) => {
+    if (e.key == "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      editMessage(parseInt(msgId), textArea.value);
+      div.innerHTML = textArea.value;
+    }
+  });
+  textArea.addEventListener("input", () => {
+    autoHeight(textArea);
+  })
+}
+
 function getUserId() {
   return localStorage.getItem("user-id");
 }
@@ -76,11 +97,12 @@ function reloadChatRoom() {
       if (messages[i]["user_id"] == my_id) {
         // my message
         dialog += "<div class='user local'>";
-        dialog += "<div class='text text-break'>";
+        dialog += "<div class='text text-break' id='msg-" + messages[i]["_id"] + "'>";
         dialog += msg;
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
-        dialog += "<span class='input'group'><button class='btn btn-outline-dark'>編輯</button>" + 
+        dialog += "<span class='input'group'><button class='btn btn-outline-dark' onclick='editMessageLabel(" + 
+          messages[i]["_id"] + ")'>編輯</button>" +
           "<button class='btn btn-outline-danger' onclick='deleteMessage(" +
           String(messages[i]["_id"]) + ")'>刪除</button></span>";
         dialog += "</div>";
