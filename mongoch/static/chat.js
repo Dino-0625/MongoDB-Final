@@ -54,7 +54,7 @@ function editMessageLabel(msgId) {
   textArea.innerHTML = div.innerHTML;
   div.innerHTML = "";
   div.appendChild(textArea);
-  
+
   autoHeight(textArea);
   textArea.addEventListener("keypress", (e) => {
     if (e.key == "Enter" && !e.shiftKey) {
@@ -101,7 +101,7 @@ function reloadChatRoom() {
         dialog += msg;
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
-        dialog += "<span class='msg-time'><button class='btn btn-outline-dark' onclick='editMessageLabel(" + 
+        dialog += "<span class='msg-time'><button class='btn btn-outline-dark' onclick='editMessageLabel(" +
           messages[i]["_id"] + ")'>編輯</button>" +
           "<button class='btn btn-outline-danger' onclick='deleteMessage(" +
           String(messages[i]["_id"]) + ")'>刪除</button></span>";
