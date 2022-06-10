@@ -52,6 +52,11 @@ function editMessage(msgId, new_msg) {
 function editMessageLabel(msgId) {
   let div = document.getElementById("msg-" + msgId);
   let textArea = document.createElement("textarea");
+  // already in editing
+  if (div.childElementCount != 0) {
+    return;
+  }
+
   textArea.classList = "form-control text-wrap";
   textArea.innerHTML = div.innerHTML;
   div.innerHTML = "";
@@ -104,9 +109,9 @@ function reloadChatRoom() {
         dialog += "</div>";
         dialog += "<span class='msg-time'>" + msgTime + "</span>";
         dialog += "<span class='msg-time'><button class='btn btn-outline-dark' onclick='editMessageLabel(" +
-          messages[i]["_id"] + ")'>編輯</button>" +
+          messages[i]["_id"] + ")'><img src='svg/pencil.svg' /></button>" +
           "<button class='btn btn-outline-danger' onclick='deleteMessage(" +
-          String(messages[i]["_id"]) + ")'>刪除</button></span>";
+          String(messages[i]["_id"]) + ")'><img src='svg/trash.svg' /></button></span>";
         dialog += "</div>";
       } else {
         // not my message
@@ -132,6 +137,21 @@ function reloadChatRoom() {
       messageBox.scrollTo(0, messageBox.scrollHeight);
       cachedHTML = html;
     }
+  };
+  xmlHttp.send(null);
+}
+
+function showInfoPage(userId) {
+  document.getElementById("info-page").style.display = "block";
+  document.getElementById("id-show").innerHTML = "ID:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;" + userId;
+  let xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("GET", "/user?" + "user_id=" + userId);
+  xmlHttp.onload = () => {
+    let res = JSON.parse(xmlHttp.responseText);
+    document.getElementById("nickname-show").innerHTML = "暱稱:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;" + res["nickname"];
+    document.getElementById("msg-count").innerHTML = "發送訊息總數:&emsp;&emsp;&emsp;&emsp;" + res["msg_count"];
+    document.getElementById("char-count").innerHTML = "發送訊息總字元數:&emsp;&emsp;" + res["char_count"];
+    document.getElementById("avg-len").innerHTML = "平均每則訊息字元數:&emsp;" + res["avg_len"];
   };
   xmlHttp.send(null);
 }
@@ -165,7 +185,7 @@ function start() {
     false
   );
   reloadChatRoom();
-  updateInterval = setInterval(reloadChatRoom, 300);
+  // updateInterval = setInterval(reloadChatRoom, 300);
 }
 
 function autoHeight(elem) {  /* javascript */
