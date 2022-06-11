@@ -96,6 +96,9 @@ def get_statistic_of_user(user_id: str) -> dict:
     ]
     try:
         result = list(collection.aggregate(query))
+        # no message yet
+        if len(result) == 0:
+            return {"msg_count": 0, "char_count": 0, "avg_len": 0}
         return result[0]
     except Exception as err:
         logging.warning(

@@ -147,7 +147,9 @@ function showInfoPage(userId) {
   xmlHttp.open("GET", "/user?" + "user_id=" + userId);
   xmlHttp.onload = () => {
     let res = JSON.parse(xmlHttp.responseText);
+    let date = new Date(res["reg_date"]);
     document.getElementById("nickname-show").innerHTML = "暱稱:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;" + res["nickname"];
+    document.getElementById("reg-time-show").innerHTML = "註冊時間:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;" + date.toLocaleString();
     document.getElementById("msg-count").innerHTML = "發送訊息總數:&emsp;&emsp;&emsp;&emsp;" + String(res["msg_count"]);
     document.getElementById("char-count").innerHTML = "發送訊息總字元數:&emsp;&emsp;" + String(res["char_count"]);
     document.getElementById("avg-len").innerHTML = "平均每則訊息字元數:&emsp;" + String(res["avg_len"].toFixed(2));
